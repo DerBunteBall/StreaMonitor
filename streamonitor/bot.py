@@ -266,7 +266,7 @@ class Bot(Thread):
     def outputFolder(self):
         return DOWNLOADS_DIR
 
-    def genOutFilename(self, create_dir=False):
+    def genOutFilename(self, create_dir=True):
         folder = self.outputFolder
         if create_dir:
             os.makedirs(folder, exist_ok=True)
