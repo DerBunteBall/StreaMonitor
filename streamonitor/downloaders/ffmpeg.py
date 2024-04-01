@@ -10,7 +10,7 @@ from parameters import DEBUG, MOVE_DIR
 
 def getVideoFfmpeg(self, url, filename):
     dl_file = Path(filename)
-    dest_file = Path(MOVE_DIR).join(dl_file)
+    dest_file = Path(MOVE_DIR).joinpath(dl_file)
     move_dir = Path(MOVE_DIR)
     cmd = [
         'ffmpeg',
