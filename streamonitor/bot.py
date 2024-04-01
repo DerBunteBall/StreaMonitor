@@ -264,9 +264,9 @@ class Bot(Thread):
 
     @property
     def outputFolder(self):
-        return os.path.join(DOWNLOADS_DIR, self.username + ' [' + self.siteslug + ']')
+        return DOWNLOADS_DIR
 
-    def genOutFilename(self, create_dir=True):
+    def genOutFilename(self, create_dir=False):
         folder = self.outputFolder
         if create_dir:
             os.makedirs(folder, exist_ok=True)

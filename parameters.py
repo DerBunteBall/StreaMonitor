@@ -1,4 +1,5 @@
 DOWNLOADS_DIR = 'downloads'
+MOVE_DIR = "completed"
 MIN_FREE_DISK_PERCENT = 1.0  # in %
 DEBUG = False
 

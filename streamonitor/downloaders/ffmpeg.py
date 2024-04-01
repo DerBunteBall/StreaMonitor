@@ -1,13 +1,17 @@
 import errno
 import subprocess
 import sys
+from pathlib import Path # Use pathlib for nice file handling
 
 import requests.cookies
 from threading import Thread
-from parameters import DEBUG
+from parameters import DEBUG, MOVE_DIR
 
 
 def getVideoFfmpeg(self, url, filename):
+    dl_file = Path(filename)
+    dest_file = Path(MOVE_DIR).join(dl_file)
+    move_dir = Path(MOVE_DIR)
     cmd = [
         'ffmpeg',
         '-user_agent', self.headers['User-Agent']
@@ -27,6 +31,7 @@ def getVideoFfmpeg(self, url, filename):
         '-i', url,
         '-c:a', 'copy',
         '-c:v', 'copy',
+        '-fs', '2G',
         filename
     ])
 
@@ -69,6 +74,12 @@ def getVideoFfmpeg(self, url, filename):
                 process.wait(1)
             except subprocess.TimeoutExpired:
                 pass
+        
+        # Create move Folder if not exists
+        if not move_dir.exists():
+            move_dir.create(parents=True, exists_ok=True)
+        # Move file
+        dl_file.rename(dest_file)
 
         if process.returncode and process.returncode != 0 and process.returncode != 255:
             self.logger.error('The process exited with an error. Return code: ' + str(process.returncode))
